@@ -1,0 +1,217 @@
+---
+title: "Spell Check Book"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = F, warning = F)
+```
+
+```{r}
+library(tidyverse)
+library(spelling)
+```
+
+## Book
+
+```{r}
+list.files("../r4sites-book", full.names = T) %>%
+  .[str_detect(., "Rmd")] %>%
+  map(., function(x) {
+    spelling::spell_check_files(x) %>%
+      as_tibble() %>%
+      unnest(found) 
+  }) %>%
+  bind_rows() %>%
+  DT::datatable()
+```
+
+## Website TOC
+
+Copy-paste the text as needed.
+
+```{r}
+spelling::spell_check_text(
+  text = '
+<body style="font-weight:18px">
+  <section class="section pt-0">
+    <div class="container">
+      <div class="content" style="font-weight:300;font-size:18px">
+        <ol>
+          <li>Introduction</li>
+            <ol>
+              <li>About this book</li>
+              <li>Target audience</li>
+              <li>Reasons to have a website</li>
+              <li>What you will learn</li>
+              <li>Tools you will use</li>
+              <li>Inspiring examples</li>
+              <li>FAQ</li>
+              <li>About the author</li>
+            </ol>
+          <li>Complete end-to-end example</li>
+            <ol>
+              <li>How it works</li>
+              <li>Install software</li>
+              <li>Create accounts</li>
+              <li>Generate a website</li>
+              <li>Make some edits</li>
+              <li>Integrate Formspree</li>
+              <li>Push the website to GitHub</li>
+              <li>Deploy the website on Netlify</li>
+              <li>Integrate Google Analytics</li>
+              <li>Push updates to GitHub</li>
+              <li>Analyze Google Analytics data</li>
+              <li>Next steps</li>
+            </ol>
+          <li>Discovering your style</li>
+            <ol>
+              <li>How it works</li>
+              <li>The 90/10 rule for choosing a theme</li>
+              <li>Recommended Hugo themes</li>
+              <li>Next steps</li>
+            </ol>
+          <li>Generating your website</li>
+            <ol>
+              <li>Prerequisites</li>
+              <li>How it works</li>
+              <li>Generate your site</li>
+              <li>Use a different Hugo theme</li>
+              <li>Serve the website locally</li>
+              <li>Next steps</li>
+            </ol>
+          <li>Fine tuning the look and feel</li>
+            <ol>
+              <li>Prerequisites</li>
+              <li>How it works</li>
+              <li>About CSS</li>
+              <li>About the Inspect tool</li>
+              <li>Before you begin</li>
+              <li>Update the base URL</li>
+              <li>Title, description, and author</li>
+              <li>Profile image</li>
+              <li>Favicon</li>
+              <li>Font style</li>
+              <li>Font sizes</li>
+              <li>Colors</li>
+              <li>Next steps</li>
+            </ol>
+          <li>Configuring pages and features</li>
+            <ol>
+              <li>Prerequisites</li>
+              <li>Before you begin</li>
+              <li>Rename pages</li>
+              <li>Delete pages</li>
+              <li>Edit the About page</li>
+              <li>Delete default posts</li>
+              <li>Edit post date format</li>
+              <li>Remove dates from Posts page</li>
+              <li>Delete language translations</li>
+              <li>Edit social media links</li>
+              <li>Configure contact forms</li>
+              <li>Customize contact forms</li>
+              <li>View contact form submissions</li>
+              <li>Next steps</li>
+            </ol>
+          <li>Authoring original content</li>
+            <ol>
+              <li>Prerequisites</li>
+              <li>How it works</li>
+              <li>Example R Markdown posts</li>
+              <li>Create a new post</li>
+              <li>Add a post summary</li>
+              <li>Add a table of contents</li>
+              <li>Add code highlighting</li>
+              <li>Add tags and categories</li>
+              <li>Add a post thumbnail</li>
+              <li>Next steps</li>
+            </ol>
+          <li>Going live on the internet</li>
+            <ol>
+              <li>Prerequisites</li>
+              <li>How it works</li>
+              <li>Upload files to GitHub</li>
+              <li>Configure Netlify for deployment</li>
+              <li>Purchase a custom domain name</li>
+              <li>Next steps</li>
+            </ol>
+          <li>Integrating Google Analytics</li>
+            <ol>
+              <li>Prerequisites</li>
+              <li>How it works</li>
+              <li>Set up Google Analytics</li>
+              <li>Push updates to GitHub</li>
+              <li>Confirm the integration</li>
+              <li>Browse the Google Analtytics UI</li>
+              <li>Use R for data analysis</li>
+            </ol>
+          <li>Tips and tricks</li>
+            <ol>
+              <li>Serve your website locally</li>
+              <li>Push updates to GitHub</li>
+              <li>Check your website</li>
+              <li>Rebuild a clean website</li>
+              <li>Find free images</li>
+            </ol>
+          <li>Getting help</li>
+            <ol>
+              <li>Join the Slack workspace</li>
+              <li>Connect with me</li>
+              <li>Additional resources</li>
+            </ol>
+        </ol>
+      </div>
+    </div>
+  </section>
+</body>
+
+  '
+)
+```
+
+## Website book summary
+
+Copy-paste the text as needed.
+
+```{r}
+spelling::spell_check_text(
+  text = '
+  Create, Publish, and Analyze Personal Websites Using R and RStudio is a digital handbook with step-by-step instructions for creating and publishing personal websites using R, RStudio, and other freely available tools including GitHub, Hugo, Netlify, and Google Analytics. This book is ideal for students, working professionals, and researchers with ties to R, Data Analytics, Data Science, Machine Learning, Statistics, Mathematics, and related fields where project portfolios and online profiles are in-demand.
+  '
+)
+```
+
+## Website book description
+
+```{r}
+spelling::spell_check_text(
+  text = '
+  In 2018, I had virtually no online presence other than about 100 random LinkedIn connections. I knew this was a problem given my budding interest in Data Science, the increasing demand for project portfolios, and the perceived need to “stand out” in the digital crowd.
+
+So, I learned how to publish my first personal website, Abnormal Distributions. Yes, I know, it looks outdated and definitely not as cool as this personal website. However, Abnormal Distributions served as the launchpad for growing my online presence. Since going live, it has served over 50,000 page views and 20,000 users from all over the world. I began posting content on LinkedIn with links to my website, and in the span of a year I received 1,700 LinkedIn connection requests from Data Scientists and professionals in related fields. I began receiving job opportunities from recruiters who would reference Abnormal Distributions as the reason for wanting to connect. Abnormal Distributions turned out to be a wonderful investment of time and energy and an amazing learning experience. It helped spark my creativity, deepen my subject matter expertise through writing, and give me the confidence to engage with the digital crowd.
+
+Create, Publish, and Analyze Personal Websites Using R and RStudio aims to teach you step-by-step how to launch your very own personal website, such as a blog or portfolio. You will learn the exact methdology that I use to create, design, publish, and analyze websites using R, RStudio, and other freely available tools including GitHub, Hugo, Netlify, and Google Analytics. All of the tools presented in this book are free to download or available through free accounts. No prior experience in web development, R, or any of the aforementioned technologies is needed to be successful with this book.
+  '
+)
+```
+
+## Website about the author
+
+```{r}
+spelling::spell_check_text(
+  text = '
+  ![Danny Morris](https://i.imgur.com/YMHI4iGm.jpg)
+
+Hi! My name is Danny Morris, and thanks for checking out my book. I am an industry Data Scientist with a background in R and predictive analytics. I love writing, sharing information, and helping people grow their careers. 
+
+A few years ago, I launched [my personal blog](https://abndistro.com) using the methodology described in my book to share information with the Data Science community, promote my work, and enrich my online presence. My goal with this book is to help you launch your own website and experience the same personal transformation I did after I launched mine. This book is perfect for students, working professional, and researchers who want to promote themselves and their work. 
+
+Get in touch!
+
+- [Inquire about the book](#footer)
+- [LinkedIn](https://www.linkedin.com/in/drmorris87)
+  '
+)
+```
